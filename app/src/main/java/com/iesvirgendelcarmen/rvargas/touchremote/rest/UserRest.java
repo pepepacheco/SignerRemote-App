@@ -116,18 +116,19 @@ public final class UserRest {
 
     public static void addRegistration(final View view, Registration registration) {
         final ProgressDialog progressDialog;
-        //progressDialog = ProgressDialog.show(view.getContext(), "Enviando datos...", "Espere por favor", true);
+        progressDialog = ProgressDialog.show(view.getContext(), "Enviando datos...", "Espere por favor", true);
 
         USER_SERVICE.postRegistration(registration, new Callback<Boolean>() {
             @Override
             public void success(Boolean aBoolean, Response response) {
-                Log.v("registration", aBoolean.booleanValue() + "");
-
+                progressDialog.dismiss();
+                Snackbar.make(view, "Registro enviado correctamente", Snackbar.LENGTH_LONG).show();
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.v("registration", error.getMessage());
+                progressDialog.dismiss();
+                Snackbar.make(view, "Error interno", Snackbar.LENGTH_LONG).show();
             }
         });
     }

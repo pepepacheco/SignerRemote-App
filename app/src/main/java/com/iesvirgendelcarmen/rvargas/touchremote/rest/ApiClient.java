@@ -5,11 +5,9 @@ import com.google.gson.GsonBuilder;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 
-import static com.google.gson.internal.UnsafeAllocator.create;
-
 public final class ApiClient {
-    public static final String URL = "192.168.1.15";
-    public static final String PORT = "8080";
+    public static final String URL = "signerremote";
+    public static final String PORT = "80";
     private static RestAdapter restAdapter = null;
 
     public static RestAdapter getAdapter () {

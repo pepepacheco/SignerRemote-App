@@ -6,21 +6,16 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
-
 import com.iesvirgendelcarmen.rvargas.touchremote.model.Notification;
 import com.iesvirgendelcarmen.rvargas.touchremote.model.Registration;
 import com.iesvirgendelcarmen.rvargas.touchremote.model.User;
 import com.iesvirgendelcarmen.rvargas.touchremote.rest.UserRest;
-
-import java.security.Provider;
 
 @TargetApi(Build.VERSION_CODES.M)
 public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
@@ -77,12 +72,17 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         String organizerId = employee.getOrganizer().getId();
         String employeeId = employee.getId();
         String notificationId = notification.getId();
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
+        double latitude = 0;
+        double longitude = 0;
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
 
         Registration registration = new Registration(organizerId, employeeId, notificationId, longitude, latitude);
 
         UserRest.addRegistration(appView, registration);
-
     }
+
 }
